@@ -8,8 +8,8 @@ namespace ArenaGame.Heroes
 {
     public class Assassin : Hero
     {
-        public Assassin(string name, double armor, double strenght, IWeapon weapon) : 
-            base(name, armor, strenght, weapon)
+        public Assassin(string name, double armor, double strength, IWeapon weapon) : 
+            base(name, armor, strength, weapon)
         {
         }
 

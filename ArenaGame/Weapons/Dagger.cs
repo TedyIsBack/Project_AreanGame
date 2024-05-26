@@ -11,20 +11,13 @@ namespace ArenaGame.Weapons
         public string Name { get; set; }
         public double AttackDamage { get; private set; }
         public double BlockingPower { get; private set; }
-        public bool HasSpecialAbilities { get; private set; }
-        public SpecialAbilities SpecialAbilities { get; private set; } = SpecialAbilities.None;
+        public SpecialAbilities SpecialAbilities { get; } = SpecialAbilities.None;
 
-        public Dagger(string name, bool hasSpecialAbilities)
+        public Dagger(string name)
         {
             Name = name;
             AttackDamage = 30;
             BlockingPower = 1;
-            HasSpecialAbilities = hasSpecialAbilities;
-            if (HasSpecialAbilities)
-            {
-                SpecialAbilities = SpecialAbilities.RedudeArmor;
-                Name = "Armorbreaker Dagger";
-            }
         }
     }
 }

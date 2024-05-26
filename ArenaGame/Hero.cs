@@ -12,7 +12,7 @@ namespace ArenaGame
         public string Name { get; private set; }
         public double Health { get; private set; }
         public double Armor { get; set; }
-        public double Strenght { get; set; }
+        public double Strength { get; set; }
         public IWeapon? Weapon { get; set; }
         public bool IsAlive
         {
@@ -31,15 +31,16 @@ namespace ArenaGame
 
             Name = name;
             Armor = armor;
-            Strenght = strenght;
+            Strength = strenght;
             Weapon = weapon;
+           
         }
 
 
         // returns actual damage
         public virtual double Attack()
         {
-            double totalDamage = Strenght;
+            double totalDamage = Strength;
             if (Weapon != null)
                 totalDamage += Weapon.AttackDamage;
             double coef = random.Next(80, 120 + 1);

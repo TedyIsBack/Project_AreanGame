@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace ArenaGame
 {
-  public enum SpecialAbilities
-  {
-    None,
-    DisableEnemyWeapon ,
-    ReduceStrength,
-    ReduceArmor
-  }
+    public interface ISpecialWeapon : IWeapon
+    {
+        public int Level { get; }
+    }
 }

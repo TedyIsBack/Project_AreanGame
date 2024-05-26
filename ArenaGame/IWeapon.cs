@@ -8,11 +8,11 @@ namespace ArenaGame
 {
     public interface IWeapon
     {
-        public SpecialAbilities SpecialAbilities { get; }
-        string Name { get; set; }
+        string Name { get; }
         double AttackDamage { get; } 
         double BlockingPower { get; }
-        bool HasSpecialAbilities { get; }
+        SpecialAbilities  SpecialAbilities { get; }
 
-  }
+
+    }
 }

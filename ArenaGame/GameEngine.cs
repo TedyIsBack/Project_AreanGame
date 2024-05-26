@@ -19,13 +19,16 @@ namespace ArenaGame
         }
 
         public delegate void GameNotifications(NotificationArgs args);
-
+        public delegate void WeaponDelegate(Hero hero, double reducedArmor);
+        public delegate void GameStartInfo(Hero heroA, Hero heroB);
         private Random random = new Random();
         public Hero HeroA { get; set; }
         public Hero HeroB { get; set; }
         public Hero Winner { get; set; }
-
         public GameNotifications? NotificationsCallBack { get; set; }
+        public WeaponDelegate? WeaponReducingPowers { get; set; }
+        public GameStartInfo? OnStarGame { get; set; }
+
         public void Fight()
         {
             Hero attacker;
@@ -42,19 +45,19 @@ namespace ArenaGame
                 attacker = HeroB;
                 defender = HeroA;
             }
-            
+
+            OnStarGame?.Invoke(attacker, defender);
 
             while (attacker.IsAlive)
             {
-                //-----------------------------new code-----------------------------
-                if (attacker.Weapon != null && attacker.Weapon.HasSpecialAbilities)
+                //----------------------------------------------------------------
+                if (attacker.Weapon != null && attacker.Weapon.SpecialAbilities != SpecialAbilities.None)
                 {
                     SpecialPower(attacker, defender);
                 }
                 //-----------------------------------------------------------------
-                double attack = attacker.Attack();//с каква сила герой 1 атакува
-                double actualDamage = defender.Defend(attack);// с каква сила герой 2 отблъсква атаката на герой 1
-
+                double attack = attacker.Attack();
+                double actualDamage = defender.Defend(attack);
 
                 if (NotificationsCallBack != null)
                 {
@@ -65,41 +68,50 @@ namespace ArenaGame
                         Defender = defender,
                         Attack = attack,
                         Damage = actualDamage
-                    }) ;
+                    });
                 }
+
 
                 Hero tempHero = attacker;
                 attacker = defender;
                 defender = tempHero;
                 
+
             }
             Winner = defender;
         }
 
-        public void SpecialPower( Hero attacker, Hero defender)
+        public  void SpecialPower( Hero attacker, Hero defender)
         {
-            
-            SpecialAbilities specialAbilities = attacker.Weapon.SpecialAbilities;
-            switch (specialAbilities)
+            SpecialAbilities sp = attacker.Weapon.SpecialAbilities;
+            switch (sp)
             {
-                case SpecialAbilities.RedudeArmor:
-                    if (attacker.Health < 60)
+                case SpecialAbilities.ReduceArmor:
+                    if (attacker.Health < 40)
                     {
                         double reducedArmor = defender.Armor * 0.30;
                         attacker.Armor += reducedArmor;
                         defender.Armor -= reducedArmor;
                     }
                     break;
-                case SpecialAbilities.DisableEnemeyWeapon:
+
+                case SpecialAbilities.DisableEnemyWeapon:
                     if (attacker.Health < 30)
-                    { defender.Weapon = null; }
-                        break;
-                case SpecialAbilities.TotalDamage:
+                        defender.Weapon = null; 
                     break;
+
+                case SpecialAbilities.ReduceStrength:
+                    if (attacker.Armor < 5)
+                    {
+                        double reducedStrength = defender.Strength * 0.15;
+                        attacker.Strength += reducedStrength;
+                        defender.Strength -= reducedStrength;
+                    }
+                        break;
+
                 default: break;
             }
-          
-
         }
+       
     }
 }
