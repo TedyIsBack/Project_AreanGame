@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ArenaGame
+﻿namespace ArenaGame
 {
     public class GameEngine
     {
@@ -19,16 +12,17 @@ namespace ArenaGame
         }
 
         public delegate void GameNotifications(NotificationArgs args);
-        public delegate void WeaponDelegate(Hero hero, double reducedArmor);
-        public delegate void GameStartInfo(Hero heroA, Hero heroB);
+        public delegate void WeaponEffect(Hero hero,Hero heroB, string power);
+        public delegate void StartInfo(Hero heroA, Hero heroB);
+        
         private Random random = new Random();
         public Hero HeroA { get; set; }
         public Hero HeroB { get; set; }
         public Hero Winner { get; set; }
         public GameNotifications? NotificationsCallBack { get; set; }
-        public WeaponDelegate? WeaponReducingPowers { get; set; }
-        public GameStartInfo? OnStarGame { get; set; }
-
+        public WeaponEffect WeaponReducingPowers { get; set; }
+        public StartInfo? OnStarGame { get; set; }
+        private int count = 0;
         public void Fight()
         {
             Hero attacker;
@@ -46,6 +40,7 @@ namespace ArenaGame
                 defender = HeroA;
             }
 
+            
             OnStarGame?.Invoke(attacker, defender);
 
             while (attacker.IsAlive)
@@ -53,7 +48,7 @@ namespace ArenaGame
                 //----------------------------------------------------------------
                 if (attacker.Weapon != null && attacker.Weapon.SpecialAbilities != SpecialAbilities.None)
                 {
-                    SpecialPower(attacker, defender);
+                    CalculateDamages(attacker, defender);
                 }
                 //-----------------------------------------------------------------
                 double attack = attacker.Attack();
@@ -81,7 +76,7 @@ namespace ArenaGame
             Winner = defender;
         }
 
-        public  void SpecialPower( Hero attacker, Hero defender)
+        private void CalculateDamages(Hero attacker, Hero defender)
         {
             SpecialAbilities sp = attacker.Weapon.SpecialAbilities;
             switch (sp)
@@ -92,13 +87,18 @@ namespace ArenaGame
                         double reducedArmor = defender.Armor * 0.30;
                         attacker.Armor += reducedArmor;
                         defender.Armor -= reducedArmor;
+                        WeaponReducingPowers?.Invoke(attacker, defender, "armor");
                     }
                     break;
 
                 case SpecialAbilities.DisableEnemyWeapon:
-                    if (attacker.Health < 30)
-                        defender.Weapon = null; 
-                    break;
+                    if (attacker.Health < 30 && count < 1)
+                    {
+                        count++;
+                        defender.Weapon = null;
+                        WeaponReducingPowers?.Invoke(attacker, defender, "health");
+                    }
+                        break;
 
                 case SpecialAbilities.ReduceStrength:
                     if (attacker.Armor < 5)
@@ -106,8 +106,9 @@ namespace ArenaGame
                         double reducedStrength = defender.Strength * 0.15;
                         attacker.Strength += reducedStrength;
                         defender.Strength -= reducedStrength;
+                        WeaponReducingPowers?.Invoke(attacker,defender,"strength");
                     }
-                        break;
+                    break;
 
                 default: break;
             }

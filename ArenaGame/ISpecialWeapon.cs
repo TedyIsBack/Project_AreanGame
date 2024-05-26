@@ -9,5 +9,6 @@ namespace ArenaGame
     public interface ISpecialWeapon : IWeapon
     {
         public int Level { get; }
+
     }
 }

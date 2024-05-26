@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArenaGame.Weapons
 {
-    internal class Pistol : ISpecialWeapon
+    public class Pistol : ISpecialWeapon
     {
         public SpecialAbilities SpecialAbilities { get; } = SpecialAbilities.DisableEnemyWeapon;
 
@@ -20,11 +20,11 @@ namespace ArenaGame.Weapons
 
         public Pistol(int level)
         {
-            Name = "Soul Sapper";
+            Name = "Soul Pistol";//Sapper
             Level = level;
             if (level > 3)
                 Level = 3;
-            AttackDamage = 30 + Math.Pow(level, 2) / 2;
+            AttackDamage = 30 + Math.Pow(level, 3);
             BlockingPower = 10;
         }
     }
