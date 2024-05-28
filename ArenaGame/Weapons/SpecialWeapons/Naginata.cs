@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArenaGame.Weapons
 {
-    public class Pistol : ISpecialWeapon
+    public class Naginata : ISpecialWeapon
     {
         public SpecialAbilities SpecialAbilities { get; } = SpecialAbilities.DisableEnemyWeapon;
 
@@ -18,9 +18,9 @@ namespace ArenaGame.Weapons
 
         public int Level { get; }
 
-        public Pistol(int level)
+        public Naginata(int level)
         {
-            Name = "Soul Pistol";//Sapper
+            Name = "Dread Disarmer Naginata";
             Level = level;
             if (level > 3)
                 Level = 3;

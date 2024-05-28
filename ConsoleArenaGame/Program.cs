@@ -2,6 +2,7 @@
 using ArenaGame.Heroes;
 using ArenaGame.Weapons;
 using System.ComponentModel;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace ConsoleArenaGame
@@ -14,8 +15,8 @@ namespace ConsoleArenaGame
 
             GameEngine gameEngine = new GameEngine()
             {
-                HeroA = new Knight("Knight", 10, 20, new Pistol(2)),
-                HeroB = new Assassin("Assassin", 2, 5, new Blade(2)),
+                HeroA = new Ninja("Ninja", 10, 10, new Naginata(2)),
+                HeroB = new Assassin("Assassin", 10, 5, new Blade(2)),
                 WeaponReducingPowers = ReducingPower,
                 NotificationsCallBack = ConsoleNotification,
                 OnStarGame = GameBeginNotifications
@@ -36,7 +37,24 @@ namespace ConsoleArenaGame
         }
         public static void ReducingPower(Hero attacker, Hero defender, string power)
         {
-            string str = EnumToString(attacker.Weapon.SpecialAbilities);
+            string str = "";
+
+            switch (attacker.Weapon.SpecialAbilities)
+            {
+                case SpecialAbilities.None:
+                    break;
+                case SpecialAbilities.DisableEnemyWeapon:
+                    str = "disable enemy's weapon";
+                    break;
+                case SpecialAbilities.ReduceStrength:
+                    str = "reduce enemy's strength with 15%";
+                    break;
+                case SpecialAbilities.ReduceArmor:
+                    str = "reduce enemy's armor with 30%";
+                    break;
+                default:
+                    break;
+            }
 
             Console.WriteLine($"[ACTIVATED SPECIAL WEAPON] {attacker.Weapon.Name} : {str}");
 
@@ -47,19 +65,7 @@ namespace ConsoleArenaGame
 
             Console.WriteLine();
         }
-        private static string EnumToString(Enum value)
-        {//how to deal with enums -> https://waynehartman.com/posts/c-enums-and-string-values.html :D
-            FieldInfo fi = value.GetType().GetField(value.ToString());
-            DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
-            if (attributes.Length > 0)
-            {
-                return attributes[0].Description;
-            }
-            else
-            {
-                return value.ToString();
-            }
-        }
+      
         public static void GameBeginNotifications(Hero heroA, Hero heroB)
         {
 

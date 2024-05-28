@@ -14,7 +14,7 @@
 
         public Blade(int level)
         {
-            Name = "Spirit Blade";//Reaper
+            Name = "Cursed Blade";//Spirit
             Level = level;
             if(level > 5)
                 Level = 5;

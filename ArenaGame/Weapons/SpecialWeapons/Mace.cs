@@ -21,7 +21,7 @@ namespace ArenaGame.Weapons
         public Mace(int level)
         {
             
-            Name = "Wrecking Mace";
+            Name = "Arcade Wrecking Mace";
             Level = level;
             if (level > 3)
                 Level = 3;

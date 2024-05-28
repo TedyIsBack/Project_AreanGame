@@ -21,6 +21,7 @@ namespace WinFormArenaGame
 
             tbAttacker.AppendText(
                 $"{args.Attacker.Name} attacked {args.Defender.Name} with {Math.Round(args.Attack, 2)} caused {Math.Round(args.Damage, 2)} damage.\r\n");
+            
 
             DateTime dt = DateTime.Now;
             
@@ -39,8 +40,8 @@ namespace WinFormArenaGame
 
             GameEngine gameEngine = new GameEngine()
             {
-                HeroA = new Knight("Knight", 10, 20, new Sword("Sword")),
-                HeroB = new Assassin("Assassin", 10, 5, new Dagger("Dagger")),
+                HeroA = new Knight("Knight", 10, 20, new Naginata(0)),
+                HeroB = new Assassin("Assassin", 10, 5, new Blade(2)),
                 NotificationsCallBack = gameNotification
             };
 
