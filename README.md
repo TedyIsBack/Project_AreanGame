@@ -1,7 +1,7 @@
 # AreanGame
 - the homework for C# OOP2 in university
--
-  ---- Notes about weapons
+
+---- Notes about weapons
 There are 5 weapons : 2 normal and 3 special weapons. The special ones have set by default a special ability also they can have a level which can boost their attack
 
   -- Special weapons --
