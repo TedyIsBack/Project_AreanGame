@@ -1,9 +1,9 @@
 # AreanGame
 - homework for C# OOP2 lecture in university
 
-----> Notes about weapons
+📝 Notes about weapons
 
-There are 5 weapons : 2 normal and 3 special weapons. The special ones have set by default a special ability also they can have a level which can boost their attack
+There are 5 weapons : 2 normal and 3 special. The special ones have set by default a special ability also they can have a level which can boost their attack
 
 -- Special weapons --
 - naginata (Dread Disarmer Naginata): disable enemy's weapon
