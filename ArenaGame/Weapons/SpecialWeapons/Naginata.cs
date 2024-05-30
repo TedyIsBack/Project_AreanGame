@@ -1,8 +1,10 @@
 ﻿ using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ArenaGame.GameEngine;
 
 namespace ArenaGame.Weapons
 {
@@ -17,6 +19,7 @@ namespace ArenaGame.Weapons
         public double BlockingPower { get; }
 
         public int Level { get; }
+        private  int count = 0;
 
         public Naginata(int level)
         {
@@ -26,6 +29,15 @@ namespace ArenaGame.Weapons
                 Level = 3;
             AttackDamage = 30 + Math.Pow(level, 3);
             BlockingPower = 10;
+        }
+        public void CalculateDamages(Hero attacker, Hero defender, WeaponEffectNotify weaponEffect)
+        {
+            if (attacker.Health < 30 && count < 1)
+            {
+                count+=1;
+                defender.Weapon = null;
+                weaponEffect?.Invoke(attacker, defender);
+            }
         }
     }
 }

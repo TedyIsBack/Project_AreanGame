@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ArenaGame.GameEngine;
 
 namespace ArenaGame
 {
@@ -13,6 +14,7 @@ namespace ArenaGame
         double BlockingPower { get; }
         SpecialAbilities  SpecialAbilities { get; }
 
-
+        void CalculateDamages(Hero attacker, Hero defender, WeaponEffectNotify weaponEffect);
+        
     }
 }

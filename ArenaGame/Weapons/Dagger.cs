@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ArenaGame.GameEngine;
 
 namespace ArenaGame.Weapons
 {
@@ -18,6 +19,10 @@ namespace ArenaGame.Weapons
             Name = name;
             AttackDamage = 30;
             BlockingPower = 1;
+        }
+
+        public void CalculateDamages(Hero attacker, Hero defender, WeaponEffectNotify weaponEffect)
+        {
         }
     }
 }

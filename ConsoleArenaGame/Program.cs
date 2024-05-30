@@ -9,17 +9,67 @@ namespace ConsoleArenaGame
 {
     class Program
     {
+        public static void ReducingPower(Hero attacker, Hero defender)
+        {
+            string str = "";
+            string propertyType = "";
+            double attackerProp = 0,
+                defenderProp = 0; 
+
+            switch (attacker.Weapon.SpecialAbilities)
+            {
+                case SpecialAbilities.None:
+                    break;
+                case SpecialAbilities.DisableEnemyWeapon:
+                    str = "disable enemy's weapon";
+                    propertyType = "health";
+                    attackerProp = attacker.Health;
+                    defenderProp = defender.Health;
+                    break;
+                case SpecialAbilities.ReduceStrength:
+                    str = "reduce enemy's strength with 15%";
+                    propertyType = "strength";
+                    attackerProp = attacker.Strength;
+                    defenderProp = defender.Strength;
+                    break;
+                case SpecialAbilities.ReduceArmor:
+                    str = "reduce enemy's armor with 30%";
+                    propertyType = "armor";
+                    attackerProp = attacker.Armor;
+                    defenderProp = defender.Armor;
+                    break;
+                default:
+                    break;
+            }
+
+            Console.WriteLine($"[ACTIVATED SPECIAL WEAPON] {attacker.Weapon.Name} : {str}");
+
+            Console.WriteLine($"    >>> Attacker {propertyType}: " +
+                $"{attackerProp:F1} " +
+                $"\n    >>> Defender {propertyType}: " +
+                $"{defenderProp:F1}");
+
+            Console.WriteLine();
+        }
+
+      
+        static void ConsoleNotification(GameEngine.NotificationArgs args)
+        {
+            Console.WriteLine($"{args.Attacker.Name} attacked {args.Defender.Name} with {Math.Round(args.Attack, 2)} and caused {Math.Round(args.Damage, 2)} damage.");
+            Console.WriteLine($"Attacker: {args.Attacker} ");
+            Console.WriteLine($"Defender: {args.Defender} ");
+            Console.WriteLine("\n ------------------------------ \n");
+        }
         static void Main(string[] args)
         {
 
 
             GameEngine gameEngine = new GameEngine()
             {
-                HeroA = new Ninja("Ninja", 10, 10, new Naginata(2)),
-                HeroB = new Assassin("Assassin", 10, 5, new Blade(2)),
-                WeaponReducingPowers = ReducingPower,
+                HeroA = new Ninja("Ninja", 10, 8, new Naginata(0)),
+                HeroB = new Gladiator("Gladiator", 3, 5, new Mace(1)),
+                WeaponEffects = ReducingPower,
                 NotificationsCallBack = ConsoleNotification,
-                OnStarGame = GameBeginNotifications
 
             };
 
@@ -28,57 +78,9 @@ namespace ConsoleArenaGame
             Console.WriteLine($"And the winner is {gameEngine.Winner}");
         }
 
-        static void ConsoleNotification(GameEngine.NotificationArgs args)
-        {
-            Console.WriteLine($"{args.Attacker.Name} attacked {args.Defender.Name} with {Math.Round(args.Attack, 2)} and caused {Math.Round(args.Damage, 2)} damage.");
-            Console.WriteLine($"Attacker: {args.Attacker} ");
-            Console.WriteLine($"Defender: {args.Defender} ");
-            Console.WriteLine("\n ------------------------------ \n");
-        }
-        public static void ReducingPower(Hero attacker, Hero defender, string power)
-        {
-            string str = "";
 
-            switch (attacker.Weapon.SpecialAbilities)
-            {
-                case SpecialAbilities.None:
-                    break;
-                case SpecialAbilities.DisableEnemyWeapon:
-                    str = "disable enemy's weapon";
-                    break;
-                case SpecialAbilities.ReduceStrength:
-                    str = "reduce enemy's strength with 15%";
-                    break;
-                case SpecialAbilities.ReduceArmor:
-                    str = "reduce enemy's armor with 30%";
-                    break;
-                default:
-                    break;
-            }
-
-            Console.WriteLine($"[ACTIVATED SPECIAL WEAPON] {attacker.Weapon.Name} : {str}");
-
-            Console.WriteLine($"    >>> Attacker {power}: " +
-                $"{(power == "strength" ?attacker.Strength : attacker.Health):F0} " +
-                $"\n    >>> Defender {power}: " +
-                $"{(power == "strength" ?  defender.Strength : defender.Health):F0}");
-
-            Console.WriteLine();
-        }
+       
       
-        public static void GameBeginNotifications(Hero heroA, Hero heroB)
-        {
-
-            Console.WriteLine($"{heroA.Name} chose " +
-               (heroA.Weapon.SpecialAbilities != SpecialAbilities.None ? $"special weapon: " +
-               $"{heroA.Weapon.Name}" : $"normal weapon : {heroA.Weapon.Name}")
-                );
-            Console.WriteLine($"{heroB.Name} chose " +
-               (heroB.Weapon.SpecialAbilities != SpecialAbilities.None ? $"special weapon : " +
-               $"{heroB.Weapon.Name}" : $"normal weapon : {heroB.Weapon.Name}")
-                );
-            Console.WriteLine("\n---- THE GAME STARTED ----\n");
-        }
     }
 
 }
