@@ -1,5 +1,2 @@
 # AreanGame
-Homework OOP2
-- име: Теодора Петкова
-- ФН: 2301321020
-- Специалност: софутерно инженерство
+- the homework for C# OOP2 in university
