@@ -39,7 +39,6 @@ namespace ArenaGame
                 defender = HeroA;
             }
 
-
             while (attacker.IsAlive)
             {
                 if (attacker.Weapon != null && attacker.Weapon.SpecialAbilities != SpecialAbilities.None)
@@ -62,11 +61,9 @@ namespace ArenaGame
                     });
                 }
 
-
                 Hero tempHero = attacker;
                 attacker = defender;
                 defender = tempHero;
-
 
             }
             Winner = defender;

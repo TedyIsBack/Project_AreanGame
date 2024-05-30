@@ -23,8 +23,6 @@ namespace ArenaGame
         }
 
 
-      
-
         public Hero(string name, double armor, double strenght, IWeapon? weapon)
         {
             Health = 100;
@@ -52,20 +50,29 @@ namespace ArenaGame
         {
             double coef = random.Next(80, 120 + 1);
             double defendPower;
-            if (Weapon != null)
-                defendPower = (Armor + Weapon.BlockingPower) * (coef / 100);
 
-            defendPower = Armor * (coef / 100);
+            if (Weapon != null)
+            {
+                defendPower = (Armor + Weapon.BlockingPower) * (coef / 100);
+            }
+            else
+            {
+                defendPower = Armor * (coef / 100);
+            }
             double realDamage = damage - defendPower;
+
             if (realDamage < 0)
+            {
                 realDamage = 0;
+            }
+
             Health -= realDamage;
             return realDamage;
         }
 
         public override string ToString()
         {
-            string w = Weapon == null ? "has no weapon" : $"use {Weapon.Name}";
+            string w = Weapon == null ? "has no weapon" : $"has {Weapon.Name}";
             return $"{Name} with health {Math.Round(Health, 2)} and armor {Armor} {w}";
 
 

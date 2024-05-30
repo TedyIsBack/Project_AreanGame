@@ -10,11 +10,11 @@ namespace ArenaGame
     public interface IWeapon
     {
         string Name { get; }
-        double AttackDamage { get; } 
+        double AttackDamage { get; }
         double BlockingPower { get; }
-        SpecialAbilities  SpecialAbilities { get; }
+        SpecialAbilities SpecialAbilities { get; }
 
         void CalculateDamages(Hero attacker, Hero defender, WeaponEffectNotify weaponEffect);
-        
+
     }
 }

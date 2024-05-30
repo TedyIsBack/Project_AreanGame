@@ -19,14 +19,11 @@ namespace ArenaGame.Weapons
             Name = name;
             AttackDamage = 20;
             BlockingPower = 10;
-            
+
         }
 
         public void CalculateDamages(Hero attacker, Hero defender, WeaponEffectNotify wrp)
         {
-            if (attacker.Armor < 5)
-            {
-            }
         }
     }
 }

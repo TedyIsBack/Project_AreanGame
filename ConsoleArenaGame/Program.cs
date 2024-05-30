@@ -14,7 +14,7 @@ namespace ConsoleArenaGame
             string str = "";
             string propertyType = "";
             double attackerProp = 0,
-                defenderProp = 0; 
+                defenderProp = 0;
 
             switch (attacker.Weapon.SpecialAbilities)
             {
@@ -52,7 +52,7 @@ namespace ConsoleArenaGame
             Console.WriteLine();
         }
 
-      
+
         static void ConsoleNotification(GameEngine.NotificationArgs args)
         {
             Console.WriteLine($"{args.Attacker.Name} attacked {args.Defender.Name} with {Math.Round(args.Attack, 2)} and caused {Math.Round(args.Damage, 2)} damage.");
@@ -63,24 +63,17 @@ namespace ConsoleArenaGame
         static void Main(string[] args)
         {
 
-
             GameEngine gameEngine = new GameEngine()
             {
                 HeroA = new Ninja("Ninja", 10, 8, new Naginata(0)),
                 HeroB = new Gladiator("Gladiator", 3, 5, new Mace(1)),
                 WeaponEffects = ReducingPower,
                 NotificationsCallBack = ConsoleNotification,
-
             };
 
             gameEngine.Fight();
             Console.WriteLine();
             Console.WriteLine($"And the winner is {gameEngine.Winner}");
         }
-
-
-       
-      
     }
-
 }

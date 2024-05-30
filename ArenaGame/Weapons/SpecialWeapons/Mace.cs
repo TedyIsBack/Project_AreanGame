@@ -8,20 +8,17 @@ using static ArenaGame.GameEngine;
 
 namespace ArenaGame.Weapons
 {
-    public class Mace: ISpecialWeapon
+    public class Mace : ISpecialWeapon
     {
         public SpecialAbilities SpecialAbilities { get; } = SpecialAbilities.ReduceArmor;
-
         public string Name { get; }
-
         public double AttackDamage { get; }
-
         public double BlockingPower { get; }
         public int Level { get; }
 
         public Mace(int level)
         {
-            
+
             Name = "Arcade Wrecking Mace";
             Level = level;
             if (level > 3)

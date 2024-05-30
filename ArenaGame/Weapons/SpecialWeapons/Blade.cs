@@ -13,19 +13,19 @@ namespace ArenaGame.Weapons
 
         public double BlockingPower { get; }
         public int Level { get; }
-        public delegate void WeaponUsageDelegate (Hero attacker, Hero defender);
+        public delegate void WeaponUsageDelegate(Hero attacker, Hero defender);
 
         public Blade(int level)
         {
-            Name = "Cursed Blade";//Spirit
+            Name = "Cursed Blade";
             Level = level;
-            if(level > 5)
+            if (level > 5)
                 Level = 5;
             AttackDamage = 40 + (rn.Next(3) * Level);
             BlockingPower = 10;
         }
 
-        public void CalculateDamages (Hero attacker, Hero defender, WeaponEffectNotify weaponEffect)
+        public void CalculateDamages(Hero attacker, Hero defender, WeaponEffectNotify weaponEffect)
         {
             if (attacker.Armor < 5)
             {
