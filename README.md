@@ -1,4 +1,4 @@
-# AreanGame
+# ArenaGame
 - homework for C# OOP2 lecture in university
 
 📝 Notes about weapons
